@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <title>Bettercard</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Bettercard</h1>
+            <p class="lead">Carding, but lazier</p>
+
+            <div id="choose-cards">
+                <div class="d-flex align-items-center" id="loading">
+                    <strong>Loading...</strong>
+                    <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+                </div>
+
+                <ul class="list-group" id="sets"></ul>
+                <button onclick="card()" class="btn btn-primary d-flex">Card!</button>
+            </div>
+            
+            <div id="card-control" class="d-none" >
+                <button class="btn btn-primary" onclick="prevCard()">Previous</button>
+                <button class="btn btn-primary" onclick="revealCard()">Reveal</button>
+                <button class="btn btn-primary" onclick="nextCard()">Next</button>
+            </div>
+
+            <div id="card" class="card d-none">
+                <div id="term-header" class="d-none card-header">
+                    <h1 id="term">Ostracization</h1>
+                </div>
+                <div class="card-body">
+                    <h3 id="clue">Name this bigger ostrich</h3>
+                </div>
+            </div>
+
+            
+        </div>
+        
+
+        <!--Scripts at the end-->
+        <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@microsoft/microsoft-graph-client/lib/graph-js-sdk.js"></script>
+        
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <script src="index.js"></script>
+        <script src="keybinds.js"></script>
+    </body>
+</html>
