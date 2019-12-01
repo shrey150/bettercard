@@ -28,6 +28,7 @@ const Client = MicrosoftGraph.Client;
 const client = Client.initWithMiddleware({ authProvider, });
 
 fetchNotebookData();
+$("#logout").removeClass("d-none");
 
 async function fetchNotebookData() {
 
@@ -182,4 +183,8 @@ function selectAll(id) {
 
     $(`.${id}`).prop("checked", !$(`.${id}`).prop("checked"));
 
+}
+
+function logout() {
+    msal.logout();
 }

@@ -10,7 +10,10 @@
     </head>
     <body>
         <div class="container">
-            <h1>Bettercard</h1>
+            <h1>
+                <span>Bettercard</span>
+                <button class="btn btn-primary d-none" id="logout" onclick="logout()">Logout</button>
+            </h1>
             <p class="lead">Carding, but lazier</p>
 
             <div id="choose-cards">
@@ -23,7 +26,7 @@
                 <button onclick="card()" class="btn btn-primary d-flex">Card!</button>
             </div>
             
-            <div id="card-control" class="d-none" >
+            <div id="card-control" class="d-none">
                 <button class="btn btn-primary" onclick="prevCard()">Previous</button>
                 <button class="btn btn-primary" onclick="revealCard()">Reveal</button>
                 <button class="btn btn-primary" onclick="nextCard()">Next</button>
