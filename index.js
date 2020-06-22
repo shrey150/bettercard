@@ -1,13 +1,8 @@
-
-let token = null;
-
 let sections = [];
 let pages = [];
 
 const cards = [];
 let cardIndex = 0;
-
-const notebook = "1-34cf5f27-768c-4a1d-884f-afd2c5057679";
 
 const msalConfig = {
     auth: {
@@ -25,22 +20,54 @@ const options = new MicrosoftGraph.MSALAuthenticationProviderOptions(["notes.rea
 const authProvider = new MicrosoftGraph.ImplicitMSALAuthenticationProvider(msal, options);
 
 const Client = MicrosoftGraph.Client;
-const client = Client.initWithMiddleware({ authProvider, });
+const client = Client.initWithMiddleware({ authProvider });
 
-fetchNotebookData();
-$("#logout").removeClass("d-none");
+fetchNotebooks();
 
-async function fetchNotebookData() {
+$("#logout").show();
+
+async function fetchNotebooks() {
+
+    const noteListPromise = await client.api("/me/onenote/notebooks").get();
+
+    const notebooks = noteListPromise.value.map(n => { return { name: n.displayName, id: n.id } });
+    
+    html = "";
+
+    notebooks.forEach(n => {
+
+        html += `<button onclick="setNotebook('${n.id}')" class='list-group-item list-group-item-action'>${n.name}</button>`;
+
+    });
+
+    $("#loading").removeClass("d-flex");
+    $("#loading").addClass("d-none");
+    $("#choose-notebook").show();
+    $("#notebooks").append(html);
+
+}
+
+function setNotebook(id) {
+
+    $("#choose-notebook").hide();
+    $("#loading").addClass("d-flex");
+    $("#loading").removeClass("d-none");
+
+    fetchNotebookData(id);
+
+}
+
+async function fetchNotebookData(notebook) {
 
     try {
 
-        let sectPromise = client.api(`/me/onenote/notebooks/${notebook}/sections`).get();
-        let pagePromise = client.api(`/me/onenote/pages`).filter(`parentNotebook/id eq '${notebook}'`).top(50).get();
+        const sectPromise = client.api(`/me/onenote/notebooks/${notebook}/sections`).get();
+        const pagePromise = client.api(`/me/onenote/pages`).filter(`parentNotebook/id eq '${notebook}'`).top(50).get();
 
         Promise.all([sectPromise, pagePromise]).then(res => {
 
             sections = res[0].value.map(n => { return {name: n.displayName, id: n.id} });
-            pages = res[1].value.map(n => { return {name: n.title, id: n.id, sectId: n.parentSection.id } });
+            pages = res[1].value.map(n => { return { name: n.title, id: n.id, sectId: n.parentSection.id } });
 
             console.log(sections, pages);
 
@@ -72,6 +99,7 @@ async function fetchNotebookData() {
             $("#loading").removeClass("d-flex");
             $("#loading").addClass("d-none");
             $("#sets").append(setsEl);
+            $("#choose-cards").show();
 
         });
 
@@ -141,23 +169,23 @@ async function card() {
 
     console.log(cards);
 
-    $("#choose-cards").addClass("d-none");
-    $("#card").removeClass("d-none");
-    $("#card-control").removeClass("d-none");
+    $("#choose-cards").hide();
+    $("#card").show();
+    $("#card-control").show();
 
     loadCard();
 
 }
 
 function loadCard() {
-    $("#term-header").addClass("d-none");
+    $("#term-header").hide();
 
     $("#term").text(cards[cardIndex].term);
     $("#clue").text(cards[cardIndex].clue);
 }
 
 function revealCard() {
-    $("#term-header").removeClass("d-none");
+    $("#term-header").show();
 }
 
 function prevCard() {

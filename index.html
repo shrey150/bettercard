@@ -12,39 +12,42 @@
         <div class="container">
             <h1>
                 <span>Bettercard</span>
-                <button class="btn btn-primary d-none" id="logout" onclick="logout()">Logout</button>
+                <button class="btn btn-primary" id="logout" onclick="logout()" style="display: none">Logout</button>
             </h1>
             <p class="lead">Carding, but lazier</p>
 
-            <div id="choose-cards">
-                <div class="d-flex align-items-center" id="loading">
-                    <strong>Loading...</strong>
-                    <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
-                </div>
+            <div class="d-flex align-items-center" id="loading">
+                <strong>Loading...</strong>
+                <div class="spinner-border ml-auto" role="status" aria-hidden="true"></div>
+            </div>
 
+            <div id="choose-notebook" style="display: none">
+                <h3>Choose notebook:</h3><br>
+                <div class="list-group" id="notebooks"></div>
+            </div>
+
+            <div id="choose-cards" style="display: none">
+                <h3>Choose sections/pages to card:</h3><br>
                 <ul class="list-group" id="sets"></ul>
                 <button onclick="card()" class="btn btn-primary d-flex">Card!</button>
             </div>
             
-            <div id="card-control" class="d-none">
+            <div id="card-control" style="display: none">
                 <button class="btn btn-primary" onclick="prevCard()">Previous</button>
                 <button class="btn btn-primary" onclick="revealCard()">Reveal</button>
                 <button class="btn btn-primary" onclick="nextCard()">Next</button>
                 <button class="btn btn-primary" onclick="shuffle()">Shuffle</button>
             </div>
 
-            <div id="card" class="card d-none">
-                <div id="term-header" class="d-none card-header">
+            <div id="card" class="card" style="display: none">
+                <div id="term-header" class="card-header" style="display: none">
                     <h1 id="term">Ostracization</h1>
                 </div>
                 <div class="card-body">
                     <h3 id="clue">Name this bigger ostrich</h3>
                 </div>
             </div>
-
-            
         </div>
-        
 
         <!--Scripts at the end-->
         <script src="https://secure.aadcdn.microsoftonline-p.com/lib/1.0.0/js/msal.min.js"></script>
